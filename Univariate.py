@@ -36,5 +36,30 @@ class central_tendency_percentile():
                 descriptive.loc ["Max",ColumnName]=dataset[ColumnName].max()
         
          return descriptive
-                
+
+class IQR():
+    def outlayer_column_names(MMM_IQR_per):
+        from Univariate import Univariate
+        from Univariate import central_tendency_percentile
+        #descriptive = MMM_IQR_per(dataset, quan)  # Automation after checking replaceing the value Lesser should not greater min
+        lesser=[]
+        greater=[]
+        for ColumnName in quan:
+            if(descriptive.loc ["Min", ColumnName]<descriptive.loc["Lesser", ColumnName]):
+                lesser.append(ColumnName)
+            if(descriptive.loc ["Max", ColumnName] > descriptive.loc["Greater", ColumnName]):
+                greater.append(ColumnName)
+        return lesser,greater
+    
+
+    def replace_in_the_outlayer():
+        lesser, greater = outlayer_column_names(dataset, quan)
+        for ColumnName in lesser:
+            dataset[ColumnName] [dataset[ColumnName]<descriptive.loc["Lesser", ColumnName]]=descriptive.loc["Lesser", ColumnName]
+        for ColumnName in greater:
+            dataset[ColumnName] [dataset[ColumnName]>descriptive.loc["Greater", ColumnName]]=descriptive.loc["Greater", ColumnName]
+        return  lesser, greater
+     # descriptive = MMM_per_IQR(dataset, quan)  # after checking replaceing with  value to the dataset not to descriptive 
+
+        
                     
