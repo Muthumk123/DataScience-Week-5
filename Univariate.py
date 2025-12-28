@@ -15,7 +15,7 @@ class central_tendency_percentile():
     def MMM_per_IQR(dataset,quan):
          import numpy as np
          import pandas as pd
-         descriptive=pd.DataFrame(index=["Mean","Median","Mode","Q1:25%","Q2:50%","Q3:75%","99%",                                                                         "Q4:100%","IQR","1.5rule","Lesser","Greater","Min","Max"],columns=quan)                                  
+         descriptive=pd.DataFrame(index=["Mean","Median","Mode","Q1:25%","Q2:50%","Q3:75%","99%",                                                                        "Q4:100%","IQR","1.5rule","Lesser","Greater","Min","Max","kurtosis","skew","Variance","Standdev"],columns=quan)                                  
          for ColumnName in quan:
               # descriptive[ColumnName]["Mean"]=dataset[ColumnName].mean()
               # descriptive[ColumnName]["Median"]=dataset[ColumnName].median()
@@ -36,6 +36,8 @@ class central_tendency_percentile():
                 descriptive.loc ["Max",ColumnName]=dataset[ColumnName].max()
                 descriptive.loc ["kurtosis",ColumnName]=dataset[ColumnName].kurtosis()
                 descriptive.loc ["skew",ColumnName]=dataset[ColumnName].skew()
+                descriptive.loc ["Variance",ColumnName]=dataset[ColumnName].var()
+                descriptive.loc ["Standdev",ColumnName]=dataset[ColumnName].std()
          return descriptive
     def outlayer_column_names(dataset,quan):
         central_tendency_per_IQR=central_tendency_percentile.MMM_per_IQR(dataset,quan)
