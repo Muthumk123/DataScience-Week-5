@@ -38,9 +38,8 @@ class central_tendency_percentile():
                 descriptive.loc ["skew",ColumnName]=dataset[ColumnName].skew()
          return descriptive
     def outlayer_column_names(dataset,quan):
-        from Univariate import Univariate
-        from Univariate import central_tendency_percentile
-        #descriptive = MMM_per_IQR(central_tendency_percentile)  # Automation after checking replaceing the value Lesser should not greater min
+        central_tendency_per_IQR=central_tendency_percentile.MMM_per_IQR(dataset,quan)
+        descriptive=central_tendency_per_IQR # Automation after checking replaceing the value Lesser should not greater min
         lesser=[]
         greater=[]
         for ColumnName in quan:
@@ -50,15 +49,15 @@ class central_tendency_percentile():
                 greater.append(ColumnName)
         return lesser,greater
     def replace_in_the_outlayer(dataset,quan):
-        from Univariate import Univariate
-        from Univariate import central_tendency_percentile
-        #lesser, greater = outlayer_column_names(dataset, quan)
+        central_tendency_per_IQR=central_tendency_percentile.MMM_per_IQR(dataset,quan)
+        descriptive=central_tendency_per_IQR 
+        lesser, greater =central_tendency_percentile.outlayer_column_names(dataset, quan)
         for ColumnName in lesser:
             dataset[ColumnName] [dataset[ColumnName]<descriptive.loc["Lesser", ColumnName]]=descriptive.loc["Lesser", ColumnName]
         for ColumnName in greater:
             dataset[ColumnName] [dataset[ColumnName]>descriptive.loc["Greater", ColumnName]]=descriptive.loc["Greater", ColumnName]
         return  lesser, greater
-     # descriptive = MMM_per_IQR(dataset, quan)  # after checking replaceing with  value to the dataset not to descriptive 
+      # after checking replaceing with  value to the dataset not to descriptive 
     def freqTable(ColumnName,dataset):
         import pandas as pd
         freqTable=pd.DataFrame(columns=["Unique_Values","Frequencey","Releative_Frequencey","Cusum"])
